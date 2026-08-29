@@ -165,13 +165,7 @@ function groupAnagrams(strs) {
 }
 
 //console.log(groupAnagrams(["eat", "tea", "tan", "ate", "nat", "bat"]));
-
-// Output:
-// [
-//   ["eat", "tea", "ate"],
-//   ["tan", "nat"],
-//   ["bat"]
-// ]
+// Expected Output: [["eat","tea","ate"],["tan","nat"],["bat"]]
 
 
 
@@ -194,10 +188,7 @@ function lengthOfLongestSubstring(s) {
         }
         seen.add(s[right]);
 
-        maxLength = Math.max(
-            maxLength,
-            right - left + 1
-        );
+        maxLength = Math.max(maxLength,right - left + 1);
     }
 
     return maxLength;
@@ -215,32 +206,26 @@ function lengthOfLongestSubstring(s) {
  * @return {Object}
  */
 function deepClone(obj) {
-    if (obj === null || typeof obj !== "object") {
+    if (obj === null || typeof obj !== 'object') {
         return obj;
     }
 
     if (Array.isArray(obj)) {
-        return obj.map(item => deepClone(item));
+        const copyArr = [];
+        for (let i = 0; i < obj.length; i++) {
+            copyArr[i] = deepClone(obj[i]);
+        }
+        return copyArr;
     }
 
-    const clonedObj = {};
-
-    for (const key in obj) {
+    const copyObj = {};
+    for (let key in obj) {
         if (Object.prototype.hasOwnProperty.call(obj, key)) {
-            clonedObj[key] = deepClone(obj[key]);
+            copyObj[key] = deepClone(obj[key]);
         }
     }
-    return clonedObj;
+    return copyObj;
 }
 
-const original = {
-    a: 1,
-    b: {
-        c: 2
-    }
-};
-
-//const cloned = deepClone(original);
-//console.log(cloned);
-// Output:
-// { a: 1, b: { c: 2 } }
+// console.log(deepClone({ a: 1, b: { c: 2 } }));
+// Expected Output: { a: 1, b: { c: 2 } }
